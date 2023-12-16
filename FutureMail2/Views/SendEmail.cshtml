@@ -1,0 +1,46 @@
+@model EmailModel
+
+@{
+    ViewData["Title"] = "E-posta Gönderimi";
+}
+
+<h2>E-posta Gönderimi</h2>
+
+@if (!String.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+@if (!String.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@using (Html.BeginForm("SendEmail", "Email", FormMethod.Post))
+{
+    <div class="form-group">
+        <label>Alıcı:</label>
+        <input asp-for="Recipient" class="form-control" />
+    </div>
+    
+    <div class="form-group">
+        <label>Konu:</label>
+        <input asp-for="Subject" class="form-control" />
+    </div>
+    
+    <div class="form-group">
+        <label>Mesaj:</label>
+        <textarea asp-for="Body" class="form-control"></textarea>
+    </div>
+    
+    <div class="form-group">
+        <label>Gönderim Tarihi:</label>
+        <input asp-for="SendDate" type="datetime-local" class="form-control" />
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Gönder</button>
+}
